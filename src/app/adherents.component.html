@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-sm-offset-3 col-sm-6" style="margin-top: 20px;">
+    <div class="form-group text-center">
+      <label>Recherche:</label>
+      <input type="text input-sm" class="form-control" [(ngModel)]="query" name="query" (ngModelChange)="search()">
+    </div>
+  </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+  <div class="col-sm-offset-2 col-sm-8 text-center" >
+    <table class="table stripped">
+      <thead>
+        <tr>
+          <th class="text-center">Nom</th>
+          <th class="text-center">Prenom</th>
+          <th class="text-center">Date de naissance</th>
+          <th class="text-center">Ecole</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let adherent of adherentsFiltered | paginate: { itemsPerPage: 10, currentPage: p }">
+          <td>{{adherent.nom}}</td>
+          <td>{{adherent.prenom}}</td>
+          <td>{{adherent.dateNaissance | date:'dd-MM-yyyy'}}</td>
+          <td>{{adherent.ecole}}</td>
+          <td><a (click)="delete(adherent)"> X </a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class ="row">
+  <div class="text-center">
+    <pagination-controls class="text" (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
