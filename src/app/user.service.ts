@@ -1,14 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+import {Subject} from "rxjs/Subject";
+import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 
 import { ServerMessage } from './ServerMessage';
 
 @Injectable()
-export class UserService {
+export class UserService{
 
   private userURL = 'api/users';
+  private loggedIn = new Subject<boolean>();
+  loggedIn$ = this.loggedIn.asObservable();
+  private right = new Subject<string>();
+  right$ = this.loggedIn.asObservable();
  
   constructor (private http: Http) {}
 
@@ -20,6 +26,30 @@ export class UserService {
       .toPromise()
       .then(this.extractData)
       .then(body => {
+        this.loggedIn.next(true);
+        let response = new ServerMessage();
+        response.code = body.code;
+        response.message = body.message;
+        return response;
+      })
+      .catch(this.handleError);
+  }
+
+  whoAmI(){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.get(this.userURL+"/me", options)
+      .toPromise()
+      .then(this.extractData)
+      .then(body => {
+        if(body.code === "ok") {
+          this.loggedIn.next(true);
+          this.right.next(body.mesage);
+        } else {
+          this.loggedIn.next(false);
+          this.right.next();
+        }
         let response = new ServerMessage();
         response.code = body.code;
         response.message = body.message;
@@ -31,11 +61,11 @@ export class UserService {
   logout(): Promise<ServerMessage>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    console.log("Logout");
     return this.http.post(this.userURL+"/logout", options)
       .toPromise()
       .then(this.extractData)
       .then(body => {
+        this.loggedIn.next(false);
         let response = new ServerMessage();
         response.code = body.code;
         response.message = body.message;

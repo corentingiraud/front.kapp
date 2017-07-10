@@ -15,13 +15,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent }      from './login.component';
 import { AdherentsComponent }   from './adherents.component';
 import { AdherentNewComponent }   from './adherent.new.component';
+import { MenuComponent }   from './menu.component';
+import { UserService } from "app/user.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdherentsComponent,
-    AdherentNewComponent
+    AdherentNewComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +33,12 @@ import { AdherentNewComponent }   from './adherent.new.component';
     FormsModule,
     HttpModule,
     BrowserAnimationsModule, 
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    UserService,
+  ],
   bootstrap: [AppComponent],
-  exports: [BrowserModule, ToastyModule],
+  exports: [BrowserModule, ToastyModule]
 })
 export class AppModule { }

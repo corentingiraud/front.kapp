@@ -20,11 +20,11 @@ export class AdherentService {
               .then(this.extractData)
               .catch(this.handleError);
   }
-  add(add: Adherent): Promise<ServerMessage> {
+  add(add: Adherent, code: any): Promise<ServerMessage> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     
-    return this.http.post(this.userURL+"/new", JSON.stringify(add), options)
+    return this.http.post(this.userURL+"/new?code="+code, JSON.stringify(add), options)
       .toPromise()
       .then(this.extractData)
       .then(body => {
@@ -44,7 +44,6 @@ export class AdherentService {
       .toPromise()
       .then(this.extractData)
       .then(body => {
-        console.log(body);
         let response = new ServerMessage();
         response.code = body.code;
         response.message = body.message;
@@ -71,5 +70,5 @@ export class AdherentService {
     console.error(errMsg);
     return Promise.reject(errMsg);
   }
-
+  
 }

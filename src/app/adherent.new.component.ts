@@ -9,21 +9,24 @@ import { Router } from "@angular/router";
   selector: 'adherents',
   templateUrl: './adherent.new.component.html',
   providers: [
-    AdherentService,
+    AdherentService
   ],
 })
 
 export class AdherentNewComponent implements OnInit {
   
+  promptMessage: any;
   message: String;
   adherent: Adherent = new Adherent;
+  userCode: String;
 
-  constructor(private router: Router, private AdherentService: AdherentService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) { 
+  constructor(private router: Router, private AdherentService: AdherentService, 
+  private toastyService:ToastyService, private toastyConfig: ToastyConfig) { 
     this.toastyConfig.theme = 'bootstrap';
   }
 
   add(){
-    this.AdherentService.add(this.adherent)
+    this.AdherentService.add(this.adherent, this.userCode)
     .then(serverMessage => {
       if(serverMessage.code === "ok") {
         this.notify("success","Adhérent ajouté","");
