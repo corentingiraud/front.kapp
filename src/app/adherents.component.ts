@@ -16,12 +16,19 @@ export class AdherentsComponent implements OnInit {
   
   p: number = 1;
   query: String = "";
+  adherentSelected: Adherent = new Adherent();
   adherents: Adherent[] = [];
   adherentsFiltered: Adherent[] = [];
+  userCode: String;
 
   constructor(private AdherentService: AdherentService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) { 
     this.toastyConfig.theme = 'bootstrap';
   }
+
+  setSelected(add: Adherent){
+    this.adherentSelected = add;
+  }
+
   updateAdherent(){
     this.AdherentService.get()
     .then(adherents => {
@@ -40,7 +47,7 @@ export class AdherentsComponent implements OnInit {
 		};
 
   delete(add: Adherent){
-    this.AdherentService.delete(add)
+    this.AdherentService.delete(add, this.userCode)
     .then(serverMessage => {
       if(serverMessage.code === "ok") {
         this.notify("success","Adhérent supprimé","");

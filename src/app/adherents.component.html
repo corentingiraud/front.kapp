@@ -1,3 +1,26 @@
+<modal #modal>
+  <modal-header [show-close]="true">
+      <h4 class="modal-title">Code barman - Merci de rendre la tablette</h4>
+  </modal-header>
+  <modal-body>
+    <div class="text-center">
+      <form #codeForm="ngForm">
+        <div class="form-group">
+          <label>Code barman:</label>
+          <input type="tel" class="form-control"
+                required name="code" [(ngModel)]="userCode" #code="ngModel" >
+          <div *ngIf="code.errors && (code.dirty || code.touched)" class="text-danger" style="margin-top:5px">
+            <div [hidden]="!code.errors.required">
+                Le code est requis.
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="modal.close()" (click)="delete(adherentSelected)" [disabled]="!codeForm.form.valid">Ajouter</button>
+      </form>
+    </div>
+  </modal-body>
+  <modal-footer [show-default-buttons]="false"></modal-footer>
+</modal>
 <div class="row">
   <div class="col-sm-offset-3 col-sm-6" style="margin-top: 20px;">
     <div class="form-group text-center">
@@ -24,7 +47,7 @@
           <td>{{adherent.prenom}}</td>
           <td>{{adherent.dateNaissance | date:'dd-MM-yyyy'}}</td>
           <td>{{adherent.ecole}}</td>
-          <td><a (click)="delete(adherent)"> X </a></td>
+          <td><button class="btn-link"><span class='glyphicon glyphicon-trash' (click)="setSelected(adherent)" (click)="modal.open()"></span></button></td>
         </tr>
       </tbody>
     </table>

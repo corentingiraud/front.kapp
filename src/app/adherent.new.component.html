@@ -1,4 +1,37 @@
-{{message}}
+<modal #modal>
+  <modal-header [show-close]="true">
+      <h4 class="modal-title">Code barman - Merci de rendre la tablette</h4>
+  </modal-header>
+  <modal-body>
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Champs</th><th>Valeurs</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Nom</td><td>{{adherent.nom}}</td></tr>
+        <tr><td>Prénom</td><td>{{adherent.prenom}}</td></tr>
+        <tr><td>Date de naissance</td><td>{{adherent.dateNaissance}}</td></tr>
+        <tr><td>Ecole</td><td>{{adherent.ecole}}</td></tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <form #codeForm="ngForm">
+        <div class="form-group">
+          <label>Code barman:</label>
+          <input autofocus type="tel" class="form-control"
+                required name="code" [(ngModel)]="userCode" #code="ngModel" >
+          <div *ngIf="code.errors && (code.dirty || code.touched)" class="text-danger" style="margin-top:5px">
+            <div [hidden]="!code.errors.required">
+                Le code est requis.
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="modal.close()" (click)="add()" [disabled]="!codeForm.form.valid">Ajouter</button>
+      </form>
+    </div>
+  </modal-body>
+  <modal-footer [show-default-buttons]="false"></modal-footer>
+</modal>
 <div class="row">
   <div class="col-sm-offset-3 col-sm-6 text-center" style="margin-top: 20px">
     <form #adherentForm="ngForm">
@@ -46,17 +79,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label>Code barman:</label>
-        <input type="tel" class="form-control"
-               required name="code" [(ngModel)]="userCode" #code="ngModel" >
-        <div *ngIf="code.errors && (code.dirty || code.touched)" class="text-danger" style="margin-top:5px">
-          <div [hidden]="!code.errors.required">
-              Le code est requis.
-          </div>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary" (click)="add()" [disabled]="!adherentForm.form.valid">Ajouter</button>
+      <button type="submit" class="btn btn-primary" (click)="modal.open()" [disabled]="!adherentForm.form.valid">Ajouter</button>
     </form>
   </div>
 </div>

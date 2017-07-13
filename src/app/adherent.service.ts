@@ -23,7 +23,6 @@ export class AdherentService {
   add(add: Adherent, code: any): Promise<ServerMessage> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    
     return this.http.post(this.userURL+"/new?code="+code, JSON.stringify(add), options)
       .toPromise()
       .then(this.extractData)
@@ -36,11 +35,10 @@ export class AdherentService {
       .catch(this.handleError);
   }
 
-  delete(add: Adherent): Promise<ServerMessage> {
+  delete(add: Adherent, code: any): Promise<ServerMessage> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    
-    return this.http.delete(this.userURL+"/"+add._id, options)
+    return this.http.delete(this.userURL+"/"+add._id+"?code="+code, options)
       .toPromise()
       .then(this.extractData)
       .then(body => {
