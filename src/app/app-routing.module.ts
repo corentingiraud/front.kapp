@@ -8,7 +8,7 @@ import { AdherentNewComponent }   from './adherent.new.component';
 import { AuthGuard } from './auth-guard.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/adherents', pathMatch: 'full' },
   { path: 'login',  component: LoginComponent },
   { path: 'adherents',  component: AdherentsComponent,  canActivate: [AuthGuard]},
   { path: 'adherents/new',  component: AdherentNewComponent, canActivate: [AuthGuard]},

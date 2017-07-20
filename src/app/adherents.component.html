@@ -7,8 +7,8 @@
       <form #codeForm="ngForm">
         <div class="form-group">
           <label>Code barman:</label>
-          <input type="tel" class="form-control"
-                required name="code" [(ngModel)]="userCode" #code="ngModel" >
+          <input type="tel" class="form-control" autofocus
+                required name="code" [(ngModel)]="userCode" #code="ngModel" autocomplete="off">
           <div *ngIf="code.errors && (code.dirty || code.touched)" class="text-danger" style="margin-top:5px">
             <div [hidden]="!code.errors.required">
                 Le code est requis.
@@ -31,7 +31,7 @@
 </div>
 <div class="row" style="margin-top: 20px;">
   <div class="col-sm-offset-2 col-sm-8 text-center" >
-    <table class="table stripped">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th class="text-center">Nom</th>
@@ -42,7 +42,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let adherent of adherentsFiltered | paginate: { itemsPerPage: 10, currentPage: p }">
+        <tr *ngFor="let adherent of adherentsFiltered | orderBy: 'dateCreation' : true | paginate: { itemsPerPage: 10, currentPage: p }">
           <td>{{adherent.nom}}</td>
           <td>{{adherent.prenom}}</td>
           <td>{{adherent.dateNaissance | date:'dd-MM-yyyy'}}</td>

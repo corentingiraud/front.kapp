@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {ToastyModule} from 'ng2-toasty';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { OrderModule } from 'ngx-order-pipe';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 
@@ -36,6 +38,8 @@ import { UserService } from "app/user.service";
     BrowserAnimationsModule, 
     ToastyModule.forRoot(),
     Ng2Bs3ModalModule,
+    OrderModule,
+    NgbModule.forRoot(),
   ],
   providers: [
     UserService,

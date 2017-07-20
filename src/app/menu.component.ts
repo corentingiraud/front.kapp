@@ -14,7 +14,9 @@ import { ToastyService, ToastyConfig, ToastOptions } from "ng2-toasty";
 export class MenuComponent implements OnInit {
 
   subscription: Subscription;
-  isAuthenticated:boolean;
+  isAuthenticated: boolean;
+  right: string;
+  isNavbarCollapsed: boolean = false;
 
   constructor(private router: Router, private UserService: UserService, 
               private toastyService:ToastyService, private toastyConfig: ToastyConfig) { 
@@ -23,10 +25,13 @@ export class MenuComponent implements OnInit {
       status => {
         this.isAuthenticated = status;
       });
+     UserService.right$.subscribe(
+      role => {
+        this.right = role;
+      });
   }
 
   ngOnInit(): void {
-
   }
 
   logout(){

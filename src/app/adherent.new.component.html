@@ -19,7 +19,7 @@
         <div class="form-group">
           <label>Code barman:</label>
           <input autofocus type="tel" class="form-control"
-                required name="code" [(ngModel)]="userCode" #code="ngModel" >
+                required name="code" [(ngModel)]="userCode" #code="ngModel" autocomplete="off">
           <div *ngIf="code.errors && (code.dirty || code.touched)" class="text-danger" style="margin-top:5px">
             <div [hidden]="!code.errors.required">
                 Le code est requis.
@@ -39,7 +39,7 @@
         <label>Nom:</label>
         <input type="text" class="form-control" placeholder="Nom"
                required name="nom" [(ngModel)]="adherent.nom"
-               #nom="ngModel" >
+               #nom="ngModel" autocomplete="off">
         <div *ngIf="nom.errors && (nom.dirty || nom.touched)" class="text-danger" style="margin-top:5px">
           <div [hidden]="!nom.errors.required">
               Le nom est requis.
@@ -50,7 +50,7 @@
         <label>Prénom:</label>
         <input type="text" class="form-control" placeholder="Prénom"
                required name="prenom" [(ngModel)]="adherent.prenom"
-               #prenom="ngModel" >
+               #prenom="ngModel" autocomplete="off">
         <div *ngIf="prenom.errors && (prenom.dirty || prenom.touched)" class="text-danger" style="margin-top:5px">
           <div [hidden]="!prenom.errors.required">
               Le prénom est requis.
@@ -61,7 +61,7 @@
         <label>Date de naissance:</label>
         <input type="date" class="form-control"
                required name="date" [(ngModel)]="adherent.dateNaissance"
-               #date="ngModel" >
+               #date="ngModel" autocomplete="off">
         <div *ngIf="date.errors && (date.dirty || date.touched)" class="text-danger" style="margin-top:5px">
           <div [hidden]="!date.errors.required">
               La date de naissance est requise.
@@ -72,7 +72,7 @@
         <label>Ecole:</label>
         <input type="text" class="form-control"
                required name="ecole" [(ngModel)]="adherent.ecole"
-               #ecole="ngModel" >
+               #ecole="ngModel" autocomplete="off">
         <div *ngIf="ecole.errors && (ecole.dirty || ecole.touched)" class="text-danger" style="margin-top:5px">
           <div [hidden]="!ecole.errors.required">
               L'école est requise.

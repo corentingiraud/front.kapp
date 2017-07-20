@@ -14,7 +14,7 @@ export class UserService{
   private loggedIn = new Subject<boolean>();
   loggedIn$ = this.loggedIn.asObservable();
   private right = new Subject<string>();
-  right$ = this.loggedIn.asObservable();
+  right$ = this.right.asObservable();
  
   constructor (private http: Http) {}
 
@@ -26,7 +26,13 @@ export class UserService{
       .toPromise()
       .then(this.extractData)
       .then(body => {
-        this.loggedIn.next(true);
+        if(body.code === "ok") {
+          this.loggedIn.next(true);
+          this.right.next(body.message);
+        } else {
+          this.loggedIn.next(false);
+          this.right.next();
+        }
         let response = new ServerMessage();
         response.code = body.code;
         response.message = body.message;
@@ -45,7 +51,7 @@ export class UserService{
       .then(body => {
         if(body.code === "ok") {
           this.loggedIn.next(true);
-          this.right.next(body.mesage);
+          this.right.next(body.message);
         } else {
           this.loggedIn.next(false);
           this.right.next();

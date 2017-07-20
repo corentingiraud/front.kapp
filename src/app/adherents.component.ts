@@ -58,6 +58,7 @@ export class AdherentsComponent implements OnInit {
     }, error =>  {
       this.notify("error","Erreur", error);
     });
+    this.userCode = "";
   }
 
   notify(type: string, titre: string, message: string){
