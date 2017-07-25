@@ -4,13 +4,14 @@ import {Subject} from "rxjs/Subject";
 import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
+import { environment } from '../environments/environment';
 
 import { ServerMessage } from './ServerMessage';
 
 @Injectable()
 export class UserService{
 
-  private userURL = 'api/users';
+  private apiUrl = environment.apiUrl;
   private loggedIn = new Subject<boolean>();
   loggedIn$ = this.loggedIn.asObservable();
   private right = new Subject<string>();
@@ -22,7 +23,7 @@ export class UserService{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     
-    return this.http.post(this.userURL+"/login", { username, password }, options)
+    return this.http.post(this.apiUrl+"/users/login", { username, password }, options)
       .toPromise()
       .then(this.extractData)
       .then(body => {
@@ -44,8 +45,8 @@ export class UserService{
   whoAmI(){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    
-    return this.http.get(this.userURL+"/me", options)
+    console.log()
+    return this.http.get(this.apiUrl+"/users/me", options)
       .toPromise()
       .then(this.extractData)
       .then(body => {
@@ -67,7 +68,7 @@ export class UserService{
   logout(): Promise<ServerMessage>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.userURL+"/logout", options)
+    return this.http.post(this.apiUrl+"/users/logout", options)
       .toPromise()
       .then(this.extractData)
       .then(body => {

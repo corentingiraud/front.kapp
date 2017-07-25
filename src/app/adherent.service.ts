@@ -4,10 +4,11 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { ServerMessage } from './ServerMessage';
 import { Adherent } from "app/Adherent";
+import { environment } from "../environments/environment";
 
 @Injectable()
 export class AdherentService {
-  private userURL = 'api/adherents';
+  private apiUrl = environment.apiUrl;
  
   constructor (private http: Http) {}
 
@@ -15,7 +16,7 @@ export class AdherentService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     
-    return this.http.get(this.userURL, options)
+    return this.http.get(this.apiUrl, options)
               .toPromise()
               .then(this.extractData)
               .catch(this.handleError);
@@ -23,7 +24,7 @@ export class AdherentService {
   add(add: Adherent, code: any): Promise<ServerMessage> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.userURL+"/new?code="+code, JSON.stringify(add), options)
+    return this.http.post(this.apiUrl+"/new?code="+code, JSON.stringify(add), options)
       .toPromise()
       .then(this.extractData)
       .then(body => {
@@ -38,7 +39,7 @@ export class AdherentService {
   delete(add: Adherent, code: any): Promise<ServerMessage> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.userURL+"/"+add._id+"?code="+code, options)
+    return this.http.delete(this.apiUrl+"/"+add._id+"?code="+code, options)
       .toPromise()
       .then(this.extractData)
       .then(body => {
