@@ -8,7 +8,6 @@ import { environment } from "../environments/environment";
 
 @Injectable()
 export class AdherentService {
-  
   private apiUrl = environment.apiUrl;
  
   constructor (private http: Http) {}
