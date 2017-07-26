@@ -19,8 +19,10 @@ export class UserService{
  
   constructor (private http: Http) {}
 
-  connect (username: String, password: String): Promise<ServerMessage> {    
-    return this.http.post(this.apiUrl+"/users/login", { username, password }, { withCredentials: true })
+  connect (username: String, password: String): Promise<ServerMessage> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers, withCredentials: true });
+    return this.http.post(this.apiUrl+"/users/login", { username, password }, options)
       .toPromise()
       .then(this.extractData)
       .then(body => {

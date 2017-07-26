@@ -13,7 +13,7 @@ export class AdherentService {
   constructor (private http: Http) {}
 
   get(): Promise<Adherent[]> {
-    return this.http.get(this.apiUrl+"/adherents/", { withCredentials: true })
+    return this.http.get(this.apiUrl+"/adherents", { withCredentials: true })
               .toPromise()
               .then(this.extractData)
               .catch(this.handleError);
