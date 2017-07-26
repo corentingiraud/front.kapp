@@ -14,9 +14,9 @@ export class AdherentService {
 
   get(): Promise<Adherent[]> {
     return this.http.get(this.apiUrl+"/adherents", { withCredentials: true })
-              .toPromise()
-              .then(this.extractData)
-              .catch(this.handleError);
+    .toPromise()
+    .then(this.extractData)
+    .catch(this.handleError);
   }
   add(add: Adherent, code: any): Promise<ServerMessage> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
