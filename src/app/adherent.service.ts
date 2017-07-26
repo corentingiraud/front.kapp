@@ -13,17 +13,14 @@ export class AdherentService {
   constructor (private http: Http) {}
 
   get(): Promise<Adherent[]> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    
-    return this.http.get(this.apiUrl+"/adherents/", options)
+    return this.http.get(this.apiUrl+"/adherents/", { withCredentials: true })
               .toPromise()
               .then(this.extractData)
               .catch(this.handleError);
   }
   add(add: Adherent, code: any): Promise<ServerMessage> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ headers: headers, withCredentials: true });
     return this.http.post(this.apiUrl+"/adherents/new?code="+code, JSON.stringify(add), options)
       .toPromise()
       .then(this.extractData)
@@ -37,9 +34,7 @@ export class AdherentService {
   }
 
   delete(add: Adherent, code: any): Promise<ServerMessage> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.apiUrl+"/adherents/"+add._id+"?code="+code, options)
+    return this.http.delete(this.apiUrl+"/adherents/"+add._id+"?code="+code, { withCredentials: true })
       .toPromise()
       .then(this.extractData)
       .then(body => {
@@ -57,7 +52,6 @@ export class AdherentService {
   }
  
   private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';

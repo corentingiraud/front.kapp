@@ -19,11 +19,8 @@ export class UserService{
  
   constructor (private http: Http) {}
 
-  connect (username: String, password: String): Promise<ServerMessage> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    
-    return this.http.post(this.apiUrl+"/users/login", { username, password }, options)
+  connect (username: String, password: String): Promise<ServerMessage> {    
+    return this.http.post(this.apiUrl+"/users/login", { username, password }, { withCredentials: true })
       .toPromise()
       .then(this.extractData)
       .then(body => {
@@ -43,10 +40,7 @@ export class UserService{
   }
 
   whoAmI(){
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    console.log()
-    return this.http.get(this.apiUrl+"/users/me", options)
+    return this.http.get(this.apiUrl+"/users/me", { withCredentials: true })
       .toPromise()
       .then(this.extractData)
       .then(body => {
@@ -66,9 +60,7 @@ export class UserService{
   }
 
   logout(): Promise<ServerMessage>{
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.apiUrl+"/users/logout", options)
+    return this.http.post(this.apiUrl+"/users/logout", { withCredentials: true })
       .toPromise()
       .then(this.extractData)
       .then(body => {
