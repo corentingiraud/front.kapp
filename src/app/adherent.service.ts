@@ -20,6 +20,7 @@ export class AdherentService {
     .then(this.extractData)
     .catch(this.handleError);
   }
+
   add(add: Adherent, code: any): Promise<ServerMessage> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, withCredentials: true });
@@ -34,7 +35,7 @@ export class AdherentService {
       })
       .catch(this.handleError);
   }
-
+  
   delete(add: Adherent, code: any): Promise<ServerMessage> {
     return this.http.delete(this.apiUrl+"/adherents/"+add._id+"?code="+code, { withCredentials: true })
       .toPromise()

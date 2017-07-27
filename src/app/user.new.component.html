@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-sm-offset-3 col-sm-6 text-center" style="margin-top: 20px">
+    <form #adherentForm="ngForm">
+      <div class="form-group">
+        <label>Username:</label>
+        <input type="text" class="form-control" placeholder="Username"
+               required name="username" [(ngModel)]="user.username"
+               #username="ngModel" autocomplete="off">
+        <div *ngIf="username.errors && (username.dirty || username.touched)" class="text-danger" style="margin-top:5px">
+          <div [hidden]="!username.errors.required">
+              Le username est requis.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" placeholder="Password"
+               required name="password" [(ngModel)]="user.password"
+               #password="ngModel" autocomplete="off">
+        <div *ngIf="password.errors && (password.dirty || password.touched)" class="text-danger" style="margin-top:5px">
+          <div [hidden]="!password.errors.required">
+              Le password est requis.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Code:</label>
+        <input type="password" class="form-control" placeholder="Code"
+               required name="code" [(ngModel)]="user.code"
+               #code="ngModel" autocomplete="off">
+        <div *ngIf="code.errors && (code.dirty || code.touched)" class="text-danger" style="margin-top:5px">
+          <div [hidden]="!code.errors.required">
+              Le code est requis.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <select class="selectpicker" required 
+          name="role" [(ngModel)]="user.role"
+          #role="ngModel">
+          <option>barman</option>
+          <option>admin</option>
+        </select>
+        <div *ngIf="role.errors && (role.dirty || role.touched)" class="text-danger" style="margin-top:5px">
+          <div [hidden]="!role.errors.required">
+              La role est requis.
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="add(user)" [disabled]="!adherentForm.form.valid">Ajouter</button>
+    </form>
+  </div>
+</div>

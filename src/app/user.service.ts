@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { environment } from '../environments/environment';
+import { User } from "app/User";
 
 import { ServerMessage } from './ServerMessage';
 
@@ -23,58 +24,76 @@ export class UserService{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, withCredentials: true });
     return this.http.post(this.apiUrl+"/users/login",{ username, password }, options)
-      .toPromise()
-      .then(this.extractData)
-      .then(body => {
-        if(body.code === "ok") {
-          this.loggedIn.next(true);
-          this.right.next(body.message);
-        } else {
-          this.loggedIn.next(false);
-          this.right.next();
-        }
-        let response = new ServerMessage();
-        response.code = body.code;
-        response.message = body.message;
-        return response;
-      })
-      .catch(this.handleError);
+    .toPromise()
+    .then(this.extractData)
+    .then(body => {
+      if(body.code === "ok") {
+        this.loggedIn.next(true);
+        this.right.next(body.message);
+      } else {
+        this.loggedIn.next(false);
+        this.right.next();
+      }
+      let response = new ServerMessage();
+      response.code = body.code;
+      response.message = body.message;
+      return response;
+    })
+    .catch(this.handleError);
+  }
+
+  add(user: User): Promise<ServerMessage> {
+    console.log(user);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers, withCredentials: true });
+    return this.http.post(this.apiUrl+"/users", JSON.stringify(user), options)
+    .toPromise()
+    .then(this.extractData)
+    .then(body => {
+      let response = new ServerMessage();
+      response.code = body.code;
+      response.message = body.message;
+      return response;
+    })
+    .catch(this.handleError);
   }
 
   whoAmI(){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, withCredentials: true });
     return this.http.get(this.apiUrl+"/users/me", options)
-      .toPromise()
-      .then(this.extractData)
-      .then(body => {
-        if(body.code === "ok") {
-          this.loggedIn.next(true);
-          this.right.next(body.message);
-        } else {
-          this.loggedIn.next(false);
-          this.right.next();
-        }
-        let response = new ServerMessage();
-        response.code = body.code;
-        response.message = body.message;
-        return response;
-      })
-      .catch(this.handleError);
+    .toPromise()
+    .then(this.extractData)
+    .then(body => {
+      if(body.code === "ok") {
+        this.loggedIn.next(true);
+        this.right.next(body.message);
+      } else {
+        this.loggedIn.next(false);
+        this.right.next();
+      }
+      let response = new ServerMessage();
+      response.code = body.code;
+      response.message = body.message;
+      return response;
+    })
+    .catch(this.handleError);
   }
 
   logout(): Promise<ServerMessage>{
-    return this.http.post(this.apiUrl+"/users/logout", { withCredentials: true })
-      .toPromise()
-      .then(this.extractData)
-      .then(body => {
-        this.loggedIn.next(false);
-        let response = new ServerMessage();
-        response.code = body.code;
-        response.message = body.message;
-        return response;
-      })
-      .catch(this.handleError);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers, withCredentials: true });
+    return this.http.post(this.apiUrl+"/users/logout", {}, options)
+    .toPromise()
+    .then(this.extractData)
+    .then(body => {
+      this.loggedIn.next(false);
+      let response = new ServerMessage();
+      response.code = body.code;
+      response.message = body.message;
+      return response;
+    })
+    .catch(this.handleError);
   }
 
   private extractData(res: Response) {

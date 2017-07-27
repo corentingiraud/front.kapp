@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent }      from './login.component';
 import { AdherentsComponent }   from './adherents.component';
 import { AdherentNewComponent }   from './adherent.new.component';
+import { UserNewComponent }   from './user.new.component';
 import { MenuComponent }   from './menu.component';
 import { UserService } from "app/user.service";
 
@@ -27,7 +28,8 @@ import { UserService } from "app/user.service";
     LoginComponent,
     AdherentsComponent,
     AdherentNewComponent,
-    MenuComponent
+    MenuComponent,
+    UserNewComponent
   ],
   imports: [
     BrowserModule,
