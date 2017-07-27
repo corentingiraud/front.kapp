@@ -13,14 +13,17 @@ const routes: Routes = [
   { path: '', redirectTo: '/adherents', pathMatch: 'full' },
   { path: 'login',  component: LoginComponent },
   { path: 'adherents',  component: AdherentsComponent,  canActivate: [AuthGuard]},
-  { path: 'adherents/new',  component: AdherentNewComponent, canActivate: [AuthGuardAdmin]},
-  { path: 'users/new',  component: UserNewComponent, canActivate: [AuthGuard]},
+  { path: 'adherents/new',  component: AdherentNewComponent, canActivate: [AuthGuard]},
+  { path: 'users/new',  component: UserNewComponent, canActivate: [AuthGuardAdmin]},
   { path: '**', redirectTo: '/adherents', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    AuthGuardAdmin
+  ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}

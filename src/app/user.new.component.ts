@@ -25,7 +25,7 @@ export class UserNewComponent implements OnInit {
     this.toastyConfig.theme = 'bootstrap';
   }
 
-  add(){
+  add(user: User){
     this.UserService.add(this.user)
     .then(serverMessage => {
       if(serverMessage.code === "ok") {
