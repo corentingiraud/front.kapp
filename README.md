@@ -1,4 +1,4 @@
-# KApp
+# KApp - FrontEnd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.0.
 
@@ -13,6 +13,8 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+You can deploy it with the following command:
+`scp -r * root@vps436314.ovh.net:/var/www/front.kapp`
 
 ## Running unit tests
 
