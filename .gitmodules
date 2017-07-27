@@ -1,0 +1,3 @@
+[submodule "front.kapp"]
+	path = front.kapp
+	url = ssh://root@vps436314.ovh.net/var/repo/front.kapp.git
